@@ -1,0 +1,26 @@
+{% extends 'jum/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Резюме | Джуманджи
+{% endblock %}
+
+{% block container %}
+<body>
+  <main class="container">
+    <div class="row">
+
+      <div class="col-12 col-lg-6 offset-2 offset-lg-3">
+         <div class="text-center mt-5 b-1">
+
+            <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
+            <p class="h5 font-weight-light">Создайте резюме</p>
+          </div>
+            {% crispy form "bootstrap4" %}
+      </div>
+    </div>
+  </main>
+{% endblock %}
+
+</body>
+</html>
