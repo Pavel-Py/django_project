@@ -79,8 +79,6 @@ class VacancyView(CreateView):
         return context
 
 
-
-
 def custom_handler404(request, exceptions):
     return HttpResponseNotFound('Страница не найдена, ошибка 404')
 
