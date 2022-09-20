@@ -10,3 +10,16 @@
 - регистрация компании и размещение вакансий компании
 - возможность откликнуться на вакансию
 - реализован поиск вакансий по ключевым словам
+
+# Запуск проекта на linux.
+Выполнить следующие команды в терминале:
+
+git clone https://github.com/Pavel-Py/django_project.git;
+cd django_project/;
+python3 -m venv venv;
+source venv/bin/activate;
+pip install -r requirements.txt;
+cd jumanji/;
+python manage.py runserver;
+
+Открыть в браузере http://127.0.0.1:8000/
