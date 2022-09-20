@@ -17,7 +17,7 @@
         <section class="pl-3">
           <a href=" {% url 'company' vacancy.company.id %}"><img src="{{ vacancy.company.logo.url }}" width="130" height="80" alt=""></a>
           <div class="d-flex align-items-baseline align-content-baseline">
-            <h1 class="h2 mt-4 font-weight-bold" >{{ vacancy.title }}</h1>
+            <h2 class="mt-4 font-weight-bold" >{{ vacancy.title }}</h2>
             <p class="m-0 pl-3">{{ vacancy.salary_min }} – {{ vacancy.salary_max }} Р</p>
           </div>
           <p class="mt-2">{{ vacancy.skills }}</p>
@@ -25,26 +25,10 @@
           <div style="line-height: 1.8;">
             <p>{{ vacancy.company.description }}</p>
             {{ vacancy.description|safe }}
-          </div>
+          </div><hr>
+            <h4 class="pt-6 mb-4 font-weight-bold" >Что бы откликнуться заполните форму:</h4>
           {% if request.user.is_authenticated %}
-          <form method="post" class="card mt-4 mb-3" enctype="multipart/form-data">{% csrf_token %}
-            <div class="card-body mx-3">
-              <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
-              <div class="form-group">
-                <label class="mb-1 mt-2" for="userName">Вас зовут</label>
-                <input class="form-control" type="text" name="written_username" placeholder="" id="userName">
-              </div>
-              <div class="form-group">
-                <label class="mb-1" for="userPhone">Ваш телефон</label>
-                <input class="form-control" type="tel" name="written_phone" placeholder="" id="userPhone">
-              </div>
-              <div class="form-group">
-                <label class="mb-1" for="userMsg" >Сопроводительное письмо</label>
-                <textarea class="form-control" name="written_cover_letter" rows="8" id="userMsg"></textarea>
-              </div>
-              <input type="submit" class="btn btn-primary mt-4 mb-2" value="Отправить">
-            </div>
-          </form>
+         {% crispy form "bootstrap4" %}
           {% else %}
            <div class="mt-4 text-center"><p>Что бы откликнуться <a href="{% url 'register' %}">Зарегистрируйтесь!</a></p></div>
           {% endif %}

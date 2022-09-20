@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, UpdateView
 
-from jum.forms import CompanyForm
+from jum.forms import CompanyForm, CompanyEditForm
 from jum.mixins import ForUserWithoutCompany, ForUserWithCompanyMixin
 from jum.models import Company
 
@@ -25,7 +25,7 @@ class CompanyCreateView(ForUserWithoutCompany, CreateView):
 class CompanyEditView(ForUserWithCompanyMixin, UpdateView):
     model = Company
     template_name = 'jum/company/edit.html'
-    form_class = CompanyForm
+    form_class = CompanyEditForm
     success_url = reverse_lazy('company-edit')
 
     def get_object(self, queryset=None):

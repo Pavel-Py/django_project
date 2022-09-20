@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 
-from jum.forms import VacancyForm
+from jum.forms import VacancyForm, VacancyEditForm
 from jum.models import Vacancy, Company, Application
 from jum.mixins import ForUserWithCompanyMixin
 
@@ -29,7 +29,7 @@ class VacancyCreteView(ForUserWithCompanyMixin, CreateView):
 class VacancyEditView(ForUserWithCompanyMixin, UpdateView):
     model = Vacancy
     template_name = 'jum/vacancy/edit.html'
-    form_class = VacancyForm
+    form_class = VacancyEditForm
     success_url = reverse_lazy('user-vacancy')
 
     def get_object(self, queryset=None):

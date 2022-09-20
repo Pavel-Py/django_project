@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, UpdateView
 
-from jum.forms import ResumeForm
+from jum.forms import ResumeForm, ResumeEditForm
 from jum.mixins import ForUserWithoutResumeMixin, ForUserWithResumeMixin
 from jum.models import Resume
 
@@ -27,7 +27,7 @@ class ResumeCreateView(ForUserWithoutResumeMixin, CreateView):
 
 class ResumeUpdateView(LoginRequiredMixin, ForUserWithResumeMixin, UpdateView):
     template_name = 'jum/resume/create.html'
-    form_class = ResumeForm
+    form_class = ResumeEditForm
     model = Resume
     success_url = reverse_lazy('resume')
 

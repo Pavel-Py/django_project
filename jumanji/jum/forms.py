@@ -16,7 +16,7 @@ class CompanyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.add_input(Submit('submit', 'создать'))
         self.fields['title'].label = 'Название'
         self.fields['location'].label = 'Находимся'
         self.fields['logo'].label = 'Эмблема'
@@ -35,6 +35,12 @@ class CompanyForm(forms.ModelForm):
         )
 
 
+class CompanyEditForm(CompanyForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.inputs[0].value = 'сохранить'
+
+
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
@@ -44,7 +50,7 @@ class VacancyForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Добавить'))
+        self.helper.add_input(Submit('submit', 'создать'))
         self.fields['title'].label = 'Название'
         self.fields['specialty'].label = 'Специализация'
         self.fields['skills'].label = 'Скилы'
@@ -59,6 +65,13 @@ class VacancyForm(forms.ModelForm):
         )
 
 
+class VacancyEditForm(VacancyForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.inputs[0].value = 'сохранить'
+
+
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
@@ -67,8 +80,10 @@ class ApplicationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', 'Добавить'))
-        self.helper.form_class = 'form-horizontal'
+        self.helper.add_input(Submit('submit', 'сохранить'))
+        self.fields['written_username'].label = 'Вас зовут'
+        self.fields['written_phone'].label = 'Ваш телефон'
+        self.fields['written_cover_letter'].label = 'Сопроводительное письмо'
 
 
 class ResumeForm(forms.ModelForm):
@@ -77,22 +92,18 @@ class ResumeForm(forms.ModelForm):
         fields = ['name', 'surname', 'status', 'salary', 'specialty', 'grade', 'education', 'experience', 'portfolio']
 
     def __init__(self, *args, **kwargs):
-        rus_labels = [
-            'Имя',
-            'Фамилия',
-            'Готовность к работе',
-            'Ожидаемое вознаграждение',
-            'Специализация',
-            'Квалификация',
-            'Образование',
-            'Опыт работы',
-            'Портфолио'
-        ]
         super().__init__(*args, **kwargs)
-        for form_obj, new_label in zip(self.fields.values(), rus_labels):
-            form_obj.label = new_label
+        self.fields['name'].label = 'Имя'
+        self.fields['surname'].label = 'Фамилия'
+        self.fields['status'].label = 'Готовность к работе'
+        self.fields['salary'].label = 'Ожидаемое вознаграждение'
+        self.fields['specialty'].label = 'Специализация'
+        self.fields['grade'].label = 'Квалификация'
+        self.fields['education'].label = 'Образование'
+        self.fields['experience'].label = 'Опыт работы'
+        self.fields['portfolio'].label = 'Портфолио'
         self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', 'Создать'))
+        self.helper.add_input(Submit('submit', 'создать'))
         self.helper.form_class = 'form-label'
         self.helper.layout = Layout(
             Row(Column('name'), Column('surname')),
@@ -102,3 +113,11 @@ class ResumeForm(forms.ModelForm):
             'experience',
             'portfolio'
         )
+
+
+class ResumeEditForm(ResumeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper.inputs[0].value = 'сохранить'
+
+

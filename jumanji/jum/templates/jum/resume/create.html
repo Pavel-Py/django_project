@@ -14,7 +14,12 @@
          <div class="text-center mt-5 b-1">
 
             <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
+             {% if object %}
+            <p class="h5 font-weight-light">Изменить резюме</p>
+             {% else %}
             <p class="h5 font-weight-light">Создайте резюме</p>
+             {% endif %}
+             <br>
           </div>
             {% crispy form "bootstrap4" %}
       </div>

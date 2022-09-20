@@ -1,11 +1,13 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from jum.validators import only_letters
+
 
 class Company(models.Model):
-    title = models.CharField(max_length=32)
+    title = models.CharField(max_length=32, validators=[only_letters])
     location = models.CharField(max_length=32)
-    logo = models.ImageField(upload_to='company')
+    logo = models.ImageField(upload_to='company', default='company/default.png')
     description = models.TextField()
     employee_count = models.IntegerField()
     owner = models.OneToOneField(User, related_name='company', on_delete=models.CASCADE, null=True, blank=True)
@@ -24,7 +26,7 @@ class Specialty(models.Model):
 
 
 class Vacancy(models.Model):
-    title = models.CharField(max_length=32)
+    title = models.CharField(max_length=32, validators=[only_letters])
     specialty = models.ForeignKey(Specialty, on_delete=models.CASCADE, related_name="vacancies")
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="vacancies")
     skills = models.TextField()
@@ -38,7 +40,7 @@ class Vacancy(models.Model):
 
 
 class Application(models.Model):
-    written_username = models.CharField(max_length=32)
+    written_username = models.CharField(max_length=32, validators=[only_letters])
     written_phone = models.IntegerField()
     written_cover_letter = models.TextField()
     vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name="applications")
@@ -62,15 +64,15 @@ class Resume(models.Model):
         teamlead = 'TL', 'Тимлид'
 
     user = models.OneToOneField(User, related_name='resume', on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
-    surname = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, validators=[only_letters])
+    surname = models.CharField(max_length=30, validators=[only_letters])
     status = models.CharField(max_length=50, choices=Status.choices)
     salary = models.IntegerField()
-    specialty = models.CharField(max_length=30)
+    specialty = models.CharField(max_length=30, validators=[only_letters])
     grade = models.CharField(max_length=50, choices=Grade.choices)
-    education = models.CharField(max_length=100)
-    experience = models.TextField(max_length=300)
-    portfolio = models.CharField(max_length=50)
+    education = models.TextField(max_length=100, blank=True)
+    experience = models.TextField(max_length=300, blank=True)
+    portfolio = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return '%s %s %s' % (self.name, self.surname, self.grade)
